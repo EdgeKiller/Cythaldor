@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using NLua;
 
 namespace Cythaldor
 {
@@ -8,7 +9,7 @@ namespace Cythaldor
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private Texture2D sprite;
+        Sprite player;
 
         public Game1()
         {
@@ -18,25 +19,29 @@ namespace Cythaldor
 
         protected override void Initialize()
         {
-            IsMouseVisible = true;
+            // TODO: Add your initialization logic here
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            sprite = Content.Load<Texture2D>("char_tile");
+            Texture2D playerTexture = Content.Load<Texture2D>("char_tile");
+            player = new Sprite(playerTexture, Vector2.Zero);
+
         }
 
         protected override void UnloadContent()
         {
-            
+            // TODO: Unload any non ContentManager content here
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            player.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -45,7 +50,7 @@ namespace Cythaldor
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            spriteBatch.Draw(sprite, Vector2.Zero, Color.White);
+            player.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
