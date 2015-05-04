@@ -23,7 +23,7 @@ namespace Cythaldor
             this.position = position;
             lua["this"] = this;
             lua["colorWhite"] = Color.White;
-            lua.DoFile("player.lua");
+            lua.DoFile("Lua/player.lua");
             luaUpdate = lua["update"] as LuaFunction;
             luaDraw = lua["draw"] as LuaFunction;
         }
