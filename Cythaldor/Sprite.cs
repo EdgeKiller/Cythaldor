@@ -9,34 +9,31 @@ using NLua;
 
 namespace Cythaldor
 {
-    public class Sprite
+    public abstract class Sprite
     {
         private Texture2D texture;
-        private Vector2 position;
+        private Vector2 position, direction;
 
-        private Lua lua = new Lua();
-        private LuaFunction luaUpdate, luaDraw;
+        
 
-        public Sprite(Texture2D texture, Vector2 position)
+        public Sprite(Texture2D texture, Vector2 position, Vector2 direction)
         {
             this.texture = texture;
             this.position = position;
-            lua["this"] = this;
-            lua["colorWhite"] = Color.White;
-            lua.DoFile("Lua/player.lua");
-            luaUpdate = lua["update"] as LuaFunction;
-            luaDraw = lua["draw"] as LuaFunction;
+            
         }
 
         public void Update(GameTime gameTime)
         {
-            luaUpdate.Call();
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            luaDraw.Call(spriteBatch);
+            spriteBatch.Draw(texture, position, Color.White);
         }
+
+        #region FUNCTIONS
 
         public bool isKeyDown(int key)
         {
@@ -46,6 +43,8 @@ namespace Cythaldor
                 return true;
             return false;
         }
+
+        #endregion
 
         #region SET/GET
 
@@ -59,6 +58,16 @@ namespace Cythaldor
             return this.position;
         }
 
+        //Direction
+        public void setDir(int x, int y)
+        {
+            this.direction = new Vector2(x, y);
+        }
+        public Vector2 getDir()
+        {
+            return this.direction;
+        }
+
         //Texture
         public void setTexture(Texture2D texture)
         {
@@ -68,6 +77,8 @@ namespace Cythaldor
         {
             return this.texture;
         }
+
+
 
         #endregion
 

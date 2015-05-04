@@ -9,7 +9,7 @@ namespace Cythaldor
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Sprite player;
+        Player player;
 
         public Game1()
         {
@@ -28,8 +28,7 @@ namespace Cythaldor
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Texture2D playerTexture = Content.Load<Texture2D>("char_tile");
-            player = new Sprite(playerTexture, Vector2.Zero);
-
+            player = new Player(playerTexture, Vector2.Zero, Vector2.Zero);
         }
 
         protected override void UnloadContent()

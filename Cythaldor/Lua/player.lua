@@ -188,6 +188,8 @@
 • Keys.Modifiers          = -65536
 --]]
 
+local DEBUG = true
+
 local PLAYER_SPEED = 2
 local PLAYER_KEY_UP = 90
 local PLAYER_KEY_DOWN = 83
@@ -196,22 +198,32 @@ local PLAYER_KEY_RIGHT = 68
 
 
 local PLAYER_POS = nil
+local PLAYER_DIR = nil
 local PLAYER_TEX = nil
 
-function update()
+function update(gt)
 	PLAYER_POS = this:getPos()
 	PLAYER_TEX = this:getTexture()
-
-	if(this:isKeyDown(PLAYER_KEY_UP) == true) then
-		this:setPos(PLAYER_POS.X, PLAYER_POS.Y - PLAYER_SPEED)
-	elseif(this:isKeyDown(PLAYER_KEY_DOWN) == true) then
-		this:setPos(PLAYER_POS.X, PLAYER_POS.Y + PLAYER_SPEED)
-	elseif(this:isKeyDown(PLAYER_KEY_LEFT) == true) then
-		this:setPos(PLAYER_POS.X - PLAYER_SPEED, PLAYER_POS.Y)
-	elseif(this:isKeyDown(PLAYER_KEY_RIGHT) == true) then
-		this:setPos(PLAYER_POS.X + PLAYER_SPEED, PLAYER_POS.Y)
+	PLAYER_DIR = this:getDir()
+	
+	if(this:isKeyDown(PLAYER_KEY_UP)) then
+		PLAYER_DIR.Y = PLAYER_DIR.Y - 1
 	end
-
+	if(this:isKeyDown(PLAYER_KEY_DOWN)) then
+		PLAYER_DIR.Y = PLAYER_DIR.Y + 1
+	end
+	if(this:isKeyDown(PLAYER_KEY_LEFT)) then
+		PLAYER_DIR.X = PLAYER_DIR.X - 1
+	end
+	if(this:isKeyDown(PLAYER_KEY_RIGHT)) then
+		PLAYER_DIR.X = PLAYER_DIR.X + 1
+	end
+	local egtm = gt.ElapsedGameTime.Milliseconds / 20
+	this:setPos(PLAYER_POS.X + (PLAYER_DIR.X * PLAYER_SPEED * egtm), PLAYER_POS.Y + (PLAYER_DIR.Y * PLAYER_SPEED * egtm))
+	this:setDir(0,0)
+	if(this:getPos() ~= PLAYER_POS and DEBUG) then
+		print(PLAYER_POS)
+	end
 end
 
 function draw(sb)
