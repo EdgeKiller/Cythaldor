@@ -1,16 +1,28 @@
---[[ INFOS:
+--[[ INFORMATIONS :
+	
+	Project : Cythaldor
+	Creator : ValdGeorgio
+	File : player.lua
+	Date : 05/05/15
+	Infos : Manage player sprite
+	
+--]]
+	
+--[[ VARIABLES AND METHODS:
 • Global Variable
-	- this -> Player
+	- this -> Player class
 
 • Functions
 	- this:getPos() -> Return player position (Vector2)
 	- this:setPos(int x, int y) -> Set player position (void)
+	- this:setMove(Vector2 dir, int speed, int elapsedTimeMilliseconds) -> Move the player with a direction and speed (void)
 	- this:getDir() -> Return player direction (Vector2)
 	- this:setDir(int x, int y) -> Set player direction (void)
 	- this:getTexture() -> Return player texture (Texture2D)
 	- this:setTexture(Texture2D texture) -> Set player texture (void)
 	
 	- this:isKeyDown(int keyCode) -> Return if the key is down (bool)
+	- this:getSourceRec(int x, int y) -> Return rectangle for tileset usage (Rectangle)
 	
 	- this:draw(SpriteBatch sb, Texture2D tex, Vector2 pos, Rectangle src) -> Draw player sprite (void)
 --]]
@@ -195,25 +207,30 @@
 • Keys.Modifiers          = -65536
 --]]
 
+-- SETTINGS
 local DEBUG = true
-
 local PLAYER_SPEED = 2
+
+-- KEYS
 local PLAYER_KEY_UP = 90
 local PLAYER_KEY_DOWN = 83
 local PLAYER_KEY_LEFT = 81
 local PLAYER_KEY_RIGHT = 68
 
+-- VARIABLES
 local PLAYER_POS = nil
 local PLAYER_DIR = nil
 local PLAYER_TEX = nil
 local PLAYER_SRC = nil
-
 local PLAYER_ANI_X = 0
 local PLAYER_ANI_Y = 0
 
-function update(gt)
+function init()
+	print("Initialization complete")
+end
 
-	PLAYER_ANI_X = PLAYER_ANI_X + 1
+function update(gt)
+	PLAYER_ANI_X = PLAYER_ANI_X + 1.1
 	if(PLAYER_ANI_X >= 50) then
 		PLAYER_ANI_X = 10
 	end
@@ -239,12 +256,10 @@ function update(gt)
 	end
 	
 	PLAYER_SRC = this:getSourceRec(math.floor(PLAYER_ANI_X / 10), PLAYER_ANI_Y)
-	
 	local egtm = gt.ElapsedGameTime.Milliseconds / 10
 	this:setMove(PLAYER_DIR,PLAYER_SPEED,egtm)
-	
 	if(this:getPos() ~= PLAYER_POS and DEBUG) then
-		--print(PLAYER_POS)
+		print(PLAYER_POS)
 	end
 	
 end

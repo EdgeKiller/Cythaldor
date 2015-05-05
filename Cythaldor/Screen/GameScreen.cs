@@ -18,10 +18,15 @@ namespace Cythaldor
 
         }
 
+        public override void Initialize()
+        {
+            player = new Player(Resources.playerTexture, Vector2.Zero, Vector2.Zero);
+            player.Initialize();
+        }
+
         public override void LoadContent(ContentManager content)
         {
-            Texture2D playerTexture = content.Load<Texture2D>("char_tile");
-            player = new Player(playerTexture, Vector2.Zero, Vector2.Zero);
+            
         }
 
         public override void Update(GameTime gameTime)

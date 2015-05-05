@@ -16,6 +16,11 @@ namespace Cythaldor
 
         }
 
+        public virtual void Initialize()
+        {
+
+        }
+
         public virtual void LoadContent(ContentManager content)
         {
             

@@ -10,18 +10,26 @@ namespace Cythaldor
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         ScreenManager screenManager;
+        private Lua lua = new Lua();
+        private LuaFunction luaInit;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            screenManager = new ScreenManager(new GameScreen());
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            lua["this"] = this;
+            lua["graphics"] = graphics;
+            lua.DoFile("Lua/start.lua");
+            luaInit = lua["init"] as LuaFunction;
+            luaInit.Call();
+            graphics.ApplyChanges();
 
+            Resources.LoadContent(Content);
+            screenManager = new ScreenManager(new GameScreen());
             base.Initialize();
         }
 
@@ -29,18 +37,18 @@ namespace Cythaldor
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             screenManager.LoadContent(Content);
-            
         }
 
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             screenManager.Update(gameTime);
 
             base.Update(gameTime);

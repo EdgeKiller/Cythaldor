@@ -20,28 +20,22 @@ namespace Cythaldor
             this.position = position;
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Initialize()
+        {
+
+        }
+
+        public virtual void Update(GameTime gameTime)
         {
             
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, Color.White);
+            
         }
 
-        #region FUNCTIONS
-
-        public bool isKeyDown(int key)
-        {
-            KeyboardState kbstate = new KeyboardState();
-            kbstate = Keyboard.GetState();
-            if (kbstate.IsKeyDown((Keys)key))
-                return true;
-            return false;
-        }
-
-        #endregion
+        
 
         #region SET/GET
 
