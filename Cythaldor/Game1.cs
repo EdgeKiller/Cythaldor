@@ -9,12 +9,13 @@ namespace Cythaldor
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        Player player;
+        ScreenManager screenManager;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            screenManager = new ScreenManager(new GameScreen());
         }
 
         protected override void Initialize()
@@ -27,8 +28,8 @@ namespace Cythaldor
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D playerTexture = Content.Load<Texture2D>("char_tile");
-            player = new Player(playerTexture, Vector2.Zero, Vector2.Zero);
+            screenManager.LoadContent(Content);
+            
         }
 
         protected override void UnloadContent()
@@ -40,7 +41,7 @@ namespace Cythaldor
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            player.Update(gameTime);
+            screenManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -49,7 +50,7 @@ namespace Cythaldor
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            player.Draw(spriteBatch);
+            screenManager.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

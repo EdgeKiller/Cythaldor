@@ -4,8 +4,15 @@
 
 • Functions
 	- this:getPos() -> Return player position (Vector2)
-	- this:setPos(x,y) -> Set player position (void)
-	- this:isKeyDown(keyCode) -> Return if the key is down (bool)
+	- this:setPos(int x, int y) -> Set player position (void)
+	- this:getDir() -> Return player direction (Vector2)
+	- this:setDir(int x, int y) -> Set player direction (void)
+	- this:getTexture() -> Return player texture (Texture2D)
+	- this:setTexture(Texture2D texture) -> Set player texture (void)
+	
+	- this:isKeyDown(int keyCode) -> Return if the key is down (bool)
+	
+	- this:draw(SpriteBatch sb, Texture2D tex, Vector2 pos, Rectangle src) -> Draw player sprite (void)
 --]]
 
 --[[ KEY CODES:
@@ -196,39 +203,53 @@ local PLAYER_KEY_DOWN = 83
 local PLAYER_KEY_LEFT = 81
 local PLAYER_KEY_RIGHT = 68
 
-
 local PLAYER_POS = nil
 local PLAYER_DIR = nil
 local PLAYER_TEX = nil
+local PLAYER_SRC = nil
+
+local PLAYER_ANI_X = 0
+local PLAYER_ANI_Y = 0
 
 function update(gt)
+
+	PLAYER_ANI_X = PLAYER_ANI_X + 1
+	if(PLAYER_ANI_X >= 50) then
+		PLAYER_ANI_X = 10
+	end
+	
 	PLAYER_POS = this:getPos()
 	PLAYER_TEX = this:getTexture()
 	PLAYER_DIR = this:getDir()
 	
 	if(this:isKeyDown(PLAYER_KEY_UP)) then
 		PLAYER_DIR.Y = PLAYER_DIR.Y - 1
-	end
-	if(this:isKeyDown(PLAYER_KEY_DOWN)) then
+		PLAYER_ANI_Y = 3
+	elseif(this:isKeyDown(PLAYER_KEY_DOWN)) then
 		PLAYER_DIR.Y = PLAYER_DIR.Y + 1
-	end
-	if(this:isKeyDown(PLAYER_KEY_LEFT)) then
+		PLAYER_ANI_Y = 2
+	elseif(this:isKeyDown(PLAYER_KEY_LEFT)) then
 		PLAYER_DIR.X = PLAYER_DIR.X - 1
-	end
-	if(this:isKeyDown(PLAYER_KEY_RIGHT)) then
+		PLAYER_ANI_Y = 1
+	elseif(this:isKeyDown(PLAYER_KEY_RIGHT)) then
 		PLAYER_DIR.X = PLAYER_DIR.X + 1
+		PLAYER_ANI_Y = 0
+	else
+		PLAYER_ANI_X = 0
 	end
-	local egtm = gt.ElapsedGameTime.Milliseconds / 20
-	this:setPos(PLAYER_POS.X + (PLAYER_DIR.X * PLAYER_SPEED * egtm), PLAYER_POS.Y + (PLAYER_DIR.Y * PLAYER_SPEED * egtm))
-	this:setDir(0,0)
+	
+	PLAYER_SRC = this:getSourceRec(math.floor(PLAYER_ANI_X / 10), PLAYER_ANI_Y)
+	
+	local egtm = gt.ElapsedGameTime.Milliseconds / 10
+	this:setMove(PLAYER_DIR,PLAYER_SPEED,egtm)
+	
 	if(this:getPos() ~= PLAYER_POS and DEBUG) then
-		print(PLAYER_POS)
+		--print(PLAYER_POS)
 	end
+	
 end
 
 function draw(sb)
-
-	sb:Draw(PLAYER_TEX,PLAYER_POS,colorWhite)
-
+	this:draw(sb,PLAYER_TEX,PLAYER_POS,PLAYER_SRC)
 end
 

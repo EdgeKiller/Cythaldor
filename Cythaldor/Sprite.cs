@@ -11,16 +11,13 @@ namespace Cythaldor
 {
     public abstract class Sprite
     {
-        private Texture2D texture;
-        private Vector2 position, direction;
-
-        
+        protected Texture2D texture;
+        protected Vector2 position, direction;
 
         public Sprite(Texture2D texture, Vector2 position, Vector2 direction)
         {
             this.texture = texture;
             this.position = position;
-            
         }
 
         public void Update(GameTime gameTime)
@@ -56,6 +53,10 @@ namespace Cythaldor
         public Vector2 getPos()
         {
             return this.position;
+        }
+        public void setMove(Vector2 dir, int speed, int egtm)
+        {
+            this.position += (dir * speed * egtm);
         }
 
         //Direction
