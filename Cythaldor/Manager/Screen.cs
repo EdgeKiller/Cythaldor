@@ -7,16 +7,17 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
-namespace Cythaldor
+namespace Cythaldor.Manager
 {
-    public static class Resources
+    public interface Screen
     {
-        public static Texture2D playerTexture;
+        void Init();
 
-        public static void LoadContent(ContentManager content)
-        {
-            playerTexture = content.Load<Texture2D>("char_tile");
-        }
+        void LoadContent(ContentManager content);
+
+        void Update(GameTime gameTime);
+
+        void Draw(SpriteBatch spriteBatch);
 
     }
 }

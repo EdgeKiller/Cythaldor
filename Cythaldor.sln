@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cythaldor", "Cythaldor\Cythaldor.csproj", "{41AAC282-546F-4B72-9BE4-11C7226F1EDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cythaldor", "Cythaldor\Cythaldor.csproj", "{CB41DC7A-5B5C-415F-8604-A08D63F1058C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{41AAC282-546F-4B72-9BE4-11C7226F1EDE}.Debug|x86.ActiveCfg = Debug|x86
-		{41AAC282-546F-4B72-9BE4-11C7226F1EDE}.Debug|x86.Build.0 = Debug|x86
-		{41AAC282-546F-4B72-9BE4-11C7226F1EDE}.Release|x86.ActiveCfg = Release|x86
-		{41AAC282-546F-4B72-9BE4-11C7226F1EDE}.Release|x86.Build.0 = Release|x86
+		{CB41DC7A-5B5C-415F-8604-A08D63F1058C}.Debug|x86.ActiveCfg = Debug|x86
+		{CB41DC7A-5B5C-415F-8604-A08D63F1058C}.Debug|x86.Build.0 = Debug|x86
+		{CB41DC7A-5B5C-415F-8604-A08D63F1058C}.Release|x86.ActiveCfg = Release|x86
+		{CB41DC7A-5B5C-415F-8604-A08D63F1058C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

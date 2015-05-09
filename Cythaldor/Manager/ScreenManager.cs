@@ -7,22 +7,20 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 
-namespace Cythaldor
+namespace Cythaldor.Manager
 {
     public class ScreenManager
     {
-        Screen actualScreen;
+        private Screen actualScreen;
 
         public ScreenManager(Screen screen)
         {
             actualScreen = screen;
-            actualScreen.Initialize();
         }
 
-        public void SetScreen(Screen screen)
+        public void Init()
         {
-            actualScreen = screen;
-            actualScreen.Initialize();
+            actualScreen.Init();
         }
 
         public void LoadContent(ContentManager content)
@@ -38,6 +36,15 @@ namespace Cythaldor
         public void Draw(SpriteBatch spriteBatch)
         {
             actualScreen.Draw(spriteBatch);
+        }
+
+        public void SetScreen(Screen screen)
+        {
+            actualScreen = screen;
+        }
+        public Screen GetScreen()
+        {
+            return actualScreen;
         }
 
     }
