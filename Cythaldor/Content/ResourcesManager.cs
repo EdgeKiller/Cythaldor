@@ -8,21 +8,21 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Cythaldor.Content
 {
-    public class TextureManager
+    public class ResourcesManager
     {
-        private Dictionary<string, Texture2D> textures = new Dictionary<string,Texture2D>();
+        private Dictionary<string, object> textures = new Dictionary<string, object>();
         private ContentManager content;
 
-        public TextureManager(ContentManager content)
+        public ResourcesManager(ContentManager content)
         {
             this.content = content;
         }
 
-        public Texture2D GetAsset(string name)
+        public T GetAsset<T>(string name)
         {
             if(!textures.ContainsKey(name))
-                textures.Add(name, content.Load<Texture2D>(name));
-            return textures[name];
+                textures.Add(name, content.Load<T>(name));
+            return (T)textures[name];
         }
 
     }

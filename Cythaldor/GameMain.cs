@@ -17,7 +17,7 @@ namespace Cythaldor
 
         private SpriteFont font;
 
-        public static TextureManager textureManager;
+        public static ResourcesManager resManager;
 
         private bool DEBUG = false;
 
@@ -26,7 +26,7 @@ namespace Cythaldor
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
-            textureManager = new TextureManager(Content);
+            resManager = new ResourcesManager(Content);
             screenManager = new ScreenManager(new MainMenu(this));
         }
 

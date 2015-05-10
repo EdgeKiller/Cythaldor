@@ -16,6 +16,7 @@ namespace Cythaldor.Guis
         List<GuiElement> guiList;
 
         Button buttonPlay, buttonExit;
+        Button buttonTest;
         Cursor cursor;
 
 
@@ -33,22 +34,29 @@ namespace Cythaldor.Guis
 
         public void LoadContent()
         {
-            buttonPlay = new Button(GameMain.textureManager.GetAsset("button_play"), new Rectangle(0, 50, 190, 49),
-                GameMain.textureManager.GetAsset("button_play_over"));
+            buttonPlay = new Button(GameMain.resManager.GetAsset<Texture2D>("button_play"), new Rectangle(0, 50, 190, 49),
+                GameMain.resManager.GetAsset<Texture2D>("button_play_over"));
             buttonPlay.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
             buttonPlay.onMouseDown += buttonPlay_onMouseDown;
             buttonPlay.onMouseClick += buttonPlay_onMouseClick;
 
-            buttonExit = new Button(GameMain.textureManager.GetAsset("button_exit"), new Rectangle(0, 100, 190, 49),
-                GameMain.textureManager.GetAsset("button_exit_over"));
+            buttonExit = new Button(GameMain.resManager.GetAsset<Texture2D>("button_exit"), new Rectangle(0, 100, 190, 49),
+                GameMain.resManager.GetAsset<Texture2D>("button_exit_over"));
             buttonExit.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
             buttonExit.onMouseClick += buttonExit_onMouseClick;
 
-            cursor = new Cursor(GameMain.textureManager.GetAsset("cursor_menu"), new Point(0, 0));
+            cursor = new Cursor(GameMain.resManager.GetAsset<Texture2D>("cursor_menu"), new Point(0, 0));
+
+            buttonTest = new Button(GameMain.resManager.GetAsset<Texture2D>("button_blue"), new Rectangle(0, 300, 190, 49), null, "Hello",
+                GameMain.resManager.GetAsset<SpriteFont>("font_base"), Color.Orange);
 
             guiList.Add(buttonPlay);
             guiList.Add(buttonExit);
+
+            guiList.Add(buttonTest);
+
             guiList.Add(cursor);
+
         }
 
         void buttonExit_onMouseClick(object sender, EventArgs e)
