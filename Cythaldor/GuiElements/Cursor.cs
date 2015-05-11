@@ -14,9 +14,9 @@ namespace Cythaldor.GuiElements
         private Point position = new Point(0,0);
         private Texture2D texture;
 
-        public Cursor(Texture2D texture, Point position)
+        public Cursor(string texture, Point position)
         {
-            this.texture = texture;
+            this.texture = GameMain.resManager.GetAsset<Texture2D>(texture);
             this.position = position;
         }
 
@@ -28,6 +28,11 @@ namespace Cythaldor.GuiElements
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, new Vector2(position.X, position.Y), Color.White);
+        }
+
+        public void SetTexture(Texture2D texture)
+        {
+            this.texture = texture;
         }
     }
 }

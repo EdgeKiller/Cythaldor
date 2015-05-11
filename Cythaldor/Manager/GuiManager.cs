@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Cythaldor.GuiElements;
 
 namespace Cythaldor.Manager
 {
@@ -22,11 +23,6 @@ namespace Cythaldor.Manager
         {
             actualGui.Init();
         }
-
-        public void LoadContent()
-        {
-            actualGui.LoadContent();
-        }
         
         public void Update(GameTime gameTime)
         {
@@ -41,6 +37,15 @@ namespace Cythaldor.Manager
         public void SetGui(Gui gui)
         {
             actualGui = gui;
+            Init();
+            foreach(GuiElement guiElem in gui.guiList)
+            {
+                if(guiElem is Button)
+                {
+                    Button guiButton = (Button)guiElem;
+                    guiButton.SetClicked();
+                }
+            }
         }
         public Gui GetGui()
         {

@@ -13,12 +13,9 @@ namespace Cythaldor.Guis
 {
     public class MainMenuGui : Gui
     {
-        List<GuiElement> guiList;
-
         Button buttonPlay, buttonExit;
-        Button buttonTest;
         Cursor cursor;
-
+        ImageRectangle bg, header;
 
         private Game game;
 
@@ -27,68 +24,39 @@ namespace Cythaldor.Guis
             this.game = game;
         }
 
-        public void Init()
+        public override void Init()
         {
-            guiList = new List<GuiElement>();
-        }
 
-        public void LoadContent()
-        {
-            buttonPlay = new Button(GameMain.resManager.GetAsset<Texture2D>("button_play"), new Rectangle(0, 50, 190, 49),
-                GameMain.resManager.GetAsset<Texture2D>("button_play_over"));
+            bg = new ImageRectangle(new Color(107,186,112), new Rectangle(0, 0, GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight));
+
+            header = new ImageRectangle("header", new Rectangle(0, 50, 400, 100));
+            header.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
+
+            buttonPlay = new Button("button_play", new Rectangle(0, 250, 190, 49), "button_play_over");
             buttonPlay.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
-            buttonPlay.onMouseDown += buttonPlay_onMouseDown;
             buttonPlay.onMouseClick += buttonPlay_onMouseClick;
 
-            buttonExit = new Button(GameMain.resManager.GetAsset<Texture2D>("button_exit"), new Rectangle(0, 100, 190, 49),
-                GameMain.resManager.GetAsset<Texture2D>("button_exit_over"));
+            buttonExit = new Button("button_exit", new Rectangle(0, 320, 190, 49), "button_exit_over");
             buttonExit.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
             buttonExit.onMouseClick += buttonExit_onMouseClick;
 
-            cursor = new Cursor(GameMain.resManager.GetAsset<Texture2D>("cursor_menu"), new Point(0, 0));
+            cursor = new Cursor("cursor_menu", new Point(Mouse.GetState().X, Mouse.GetState().Y));
 
-            buttonTest = new Button(GameMain.resManager.GetAsset<Texture2D>("button_blue"), new Rectangle(0, 300, 190, 49), null, "Hello",
-                GameMain.resManager.GetAsset<SpriteFont>("font_base"), Color.Orange);
-
+            guiList.Add(bg);
+            guiList.Add(header);
             guiList.Add(buttonPlay);
             guiList.Add(buttonExit);
-
-            guiList.Add(buttonTest);
-
             guiList.Add(cursor);
+        }
 
+        void buttonPlay_onMouseClick(object sender, EventArgs e)
+        {
+            GameMain.GetGuiManager().SetGui(new LoadNewGui(game));
         }
 
         void buttonExit_onMouseClick(object sender, EventArgs e)
         {
             game.Exit();
-        }
-
-        void buttonPlay_onMouseClick(object sender, EventArgs e)
-        {
-            Console.WriteLine("Button Play Mouse Click");
-        }
-
-        void buttonPlay_onMouseDown(object sender, EventArgs e)
-        {
-            Console.WriteLine("Button Play Mouse down");
-        }
-
-
-        public void Update(GameTime gameTime)
-        {
-            foreach (GuiElement guiElem in guiList)
-            {
-                guiElem.Update(gameTime);
-            }
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach(GuiElement guiElem in guiList)
-            {
-                guiElem.Draw(spriteBatch);
-            }
         }
     }
 }

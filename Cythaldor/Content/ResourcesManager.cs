@@ -10,7 +10,7 @@ namespace Cythaldor.Content
 {
     public class ResourcesManager
     {
-        private Dictionary<string, object> textures = new Dictionary<string, object>();
+        private Dictionary<string, object> resources = new Dictionary<string, object>();
         private ContentManager content;
 
         public ResourcesManager(ContentManager content)
@@ -20,9 +20,9 @@ namespace Cythaldor.Content
 
         public T GetAsset<T>(string name)
         {
-            if(!textures.ContainsKey(name))
-                textures.Add(name, content.Load<T>(name));
-            return (T)textures[name];
+            if (!resources.ContainsKey(name))
+                resources.Add(name, content.Load<T>(name));
+            return (T)resources[name];
         }
 
     }

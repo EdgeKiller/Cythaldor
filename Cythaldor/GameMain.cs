@@ -41,7 +41,6 @@ namespace Cythaldor
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             screenManager.LoadContent(Content);
-            guiManager.LoadContent();
             font = Content.Load<SpriteFont>("font_base");
         }
 

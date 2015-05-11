@@ -1,18 +1,36 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using System.Collections.Generic;
+using Cythaldor.GuiElements;
+using Microsoft.Xna.Framework.Input;
 
 namespace Cythaldor.Manager
 {
-    public interface Gui
+    public class Gui
     {
-        void Init();
+        public List<GuiElement> guiList = new List<GuiElement>();
 
-        void LoadContent();
+        public virtual void Init()
+        {
+            
+        }
 
-        void Update(GameTime gameTime);
+        public void Update(GameTime gameTime)
+        {
+            foreach (GuiElement guiElem in guiList)
+            {
+                guiElem.Update(gameTime);
+            }
+        }
 
-        void Draw(SpriteBatch spriteBatch);
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (GuiElement guiElem in guiList)
+            {
+                guiElem.Draw(spriteBatch);
+            }
+        }
 
     }
 }

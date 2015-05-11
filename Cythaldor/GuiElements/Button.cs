@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Cythaldor.GuiElements
 {
@@ -15,26 +16,38 @@ namespace Cythaldor.GuiElements
         private Texture2D texture, textureNormal, textureOver;
         private Rectangle rectangle;
 
-        private bool over = false, clicked = false;
+        private bool over = false, clicked = false, soundPlayed = false;
 
         public event EventHandler onMouseDown, onMouseOver, onMouseLeave, onMouseClick;
 
-        private SpriteFont font;
-        private string text;
-        private Color textColor;
+        private SpriteFont font = null;
+        private string text = null;
+        private Color textColor = Color.White;
         private Vector2 textPos = Vector2.Zero;
-        
 
-        public Button(Texture2D texture, Rectangle rectangle, Texture2D textureOver = null, string text = null, SpriteFont font = null, Color? textColor = null)
+        private SoundEffect soundOver = GameMain.resManager.GetAsset<SoundEffect>("button_over");
+        private SoundEffect soundClick = GameMain.resManager.GetAsset<SoundEffect>("button_click");
+
+        public Button(string texture, Rectangle rectangle, string textureOver = null)
         {
-            this.texture = texture;
+            this.texture = GameMain.resManager.GetAsset<Texture2D>(texture);
             this.textureNormal = this.texture;
             this.rectangle = rectangle;
-            this.textureOver = textureOver;
+            if (textureOver != null)
+                this.textureOver = GameMain.resManager.GetAsset<Texture2D>(textureOver);
+        }
+
+        public Button(string texture, Rectangle rectangle, string text, string font, Color textColor, string textureOver = null)
+        {
+            this.texture = GameMain.resManager.GetAsset<Texture2D>(texture);
+            this.textureNormal = this.texture;
+            this.rectangle = rectangle;
+            if(textureOver != null)
+                this.textureOver = GameMain.resManager.GetAsset<Texture2D>(textureOver);
             this.text = text;
-            this.font = font;
+            this.font = GameMain.resManager.GetAsset<SpriteFont>(font);
             if (textColor != null)
-                this.textColor = (Color)textColor;
+                this.textColor = textColor;
             else
                 this.textColor = Color.White;
         }
@@ -46,12 +59,21 @@ namespace Cythaldor.GuiElements
                 over = true;
                 if (textureOver != null)
                     SetTexture(textureOver);
-                if(onMouseOver != null)
+                if (!soundPlayed)
+                {
+                    soundOver.Play();
+                    soundPlayed = true;
+                }
+                if (onMouseOver != null)
                     onMouseOver.Invoke(new object(), new EventArgs());
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
-                    if (!clicked && onMouseClick != null)
-                        onMouseClick.Invoke(new object(), new EventArgs());
+                    if (!clicked)
+                    {
+                        soundClick.Play();
+                        if(onMouseClick != null)
+                            onMouseClick.Invoke(new object(), new EventArgs());
+                    }
                     clicked = true;
                     if (onMouseDown != null)
                         onMouseDown.Invoke(new object(), new EventArgs());
@@ -59,11 +81,12 @@ namespace Cythaldor.GuiElements
                 else
                     clicked = false;
             }
-            else if(over == true)
+            else if (over)
             {
                 over = false;
-                clicked = false;
                 SetTexture(textureNormal);
+                if (soundPlayed)
+                    soundPlayed = false;
                 if (onMouseLeave != null)
                     onMouseLeave.Invoke(new object(), new EventArgs());
             }
@@ -75,7 +98,7 @@ namespace Cythaldor.GuiElements
             if (text != null && font != null && textColor != null)
             {
                 CenterText();
-                spriteBatch.DrawString(font, text, textPos, textColor);
+                spriteBatch.DrawString(font, text, textPos, (Color)textColor);
             }
         }
 
@@ -123,9 +146,14 @@ namespace Cythaldor.GuiElements
             CenterText();
         }
 
+        public void SetClicked()
+        {
+            clicked = true;
+        }
+
         private void CenterText()
         {
-            if(text != null && font != null)
+            if (text != null && font != null)
                 textPos = new Vector2(rectangle.X + (rectangle.Width / 2) - (font.MeasureString(text).X / 2), rectangle.Y + (rectangle.Height / 2) - (font.MeasureString(text).Y / 2));
         }
     }
