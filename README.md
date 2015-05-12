@@ -5,6 +5,10 @@ Cythaldor
 
 Cythaldor is a open source C#/Mono game managed with Lua.
 
+**LiveStream and Youtube**
+
+- Twitch : http://goo.gl/Cyd5dK  
+- Rerun on Youtube : https://goo.gl/VIirPs
 
 **Libraries**
 
