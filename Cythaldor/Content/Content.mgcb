@@ -141,3 +141,9 @@
 /processorParam:TextureFormat=Color
 /build:header.png
 
+#begin font_base_small.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:font_base_small.spritefont
+

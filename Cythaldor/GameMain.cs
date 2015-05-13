@@ -4,28 +4,32 @@ using Microsoft.Xna.Framework.Input;
 using Cythaldor.Manager;
 using Cythaldor.Screens;
 using Cythaldor.Content;
+using System;
 
 namespace Cythaldor
 {
     public class GameMain : Game
     {
-        static GraphicsDeviceManager graphics;
+        
         SpriteBatch spriteBatch;
-        ScreenManager screenManager;
+        private static ScreenManager screenManager;
 
-        static GuiManager guiManager;
+        private static GraphicsDeviceManager graphics;
+        private static GuiManager guiManager;
+        private static ResourcesManager resManager;
 
         private SpriteFont font;
-
-        public static ResourcesManager resManager;
-
         private bool DEBUG = false;
+
 
         public GameMain()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = false;
+            graphics.IsFullScreen = true;
+            IsMouseVisible = true;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
             resManager = new ResourcesManager(Content);
             screenManager = new ScreenManager(new MainMenu(this));
         }
@@ -86,6 +90,16 @@ namespace Cythaldor
         public static void SetGuiManager(GuiManager guiM)
         {
             guiManager = guiM;
+        }
+
+        public static ResourcesManager GetResManager()
+        {
+            return resManager;
+        }
+
+        public static ScreenManager GetScreenManager()
+        {
+            return screenManager;
         }
     }
 }

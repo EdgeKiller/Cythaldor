@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="Content\ResourcesManager.cs" />
     <Compile Include="GameMain.cs" />
+    <Compile Include="GameClasses\Map\Map.cs" />
+    <Compile Include="GameClasses\Map\MapManager.cs" />
+    <Compile Include="GameClasses\Map\Tile.cs" />
     <Compile Include="GuiElements\ImageRectangle.cs" />
     <Compile Include="GuiElements\Cursor.cs" />
     <Compile Include="GuiElements\GuiElement.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="Manager\ScreenManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\InGame.cs" />
     <Compile Include="Screens\MainMenu.cs" />
   </ItemGroup>
   <ItemGroup>

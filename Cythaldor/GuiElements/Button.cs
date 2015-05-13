@@ -20,32 +20,34 @@ namespace Cythaldor.GuiElements
 
         public event EventHandler onMouseDown, onMouseOver, onMouseLeave, onMouseClick;
 
-        private SpriteFont font = null;
+        private SpriteFont font = null, font_small = null, base_font = null;
         private string text = null;
         private Color textColor = Color.White;
         private Vector2 textPos = Vector2.Zero;
 
-        private SoundEffect soundOver = GameMain.resManager.GetAsset<SoundEffect>("button_over");
-        private SoundEffect soundClick = GameMain.resManager.GetAsset<SoundEffect>("button_click");
+        private SoundEffect soundOver = GameMain.GetResManager().GetAsset<SoundEffect>("button_over");
+        private SoundEffect soundClick = GameMain.GetResManager().GetAsset<SoundEffect>("button_click");
 
         public Button(string texture, Rectangle rectangle, string textureOver = null)
         {
-            this.texture = GameMain.resManager.GetAsset<Texture2D>(texture);
+            this.texture = GameMain.GetResManager().GetAsset<Texture2D>(texture);
             this.textureNormal = this.texture;
             this.rectangle = rectangle;
             if (textureOver != null)
-                this.textureOver = GameMain.resManager.GetAsset<Texture2D>(textureOver);
+                this.textureOver = GameMain.GetResManager().GetAsset<Texture2D>(textureOver);
         }
 
-        public Button(string texture, Rectangle rectangle, string text, string font, Color textColor, string textureOver = null)
+        public Button(string texture, Rectangle rectangle, string text, string font, string fontsmall, Color textColor, string textureOver = null)
         {
-            this.texture = GameMain.resManager.GetAsset<Texture2D>(texture);
+            this.texture = GameMain.GetResManager().GetAsset<Texture2D>(texture);
             this.textureNormal = this.texture;
             this.rectangle = rectangle;
             if(textureOver != null)
-                this.textureOver = GameMain.resManager.GetAsset<Texture2D>(textureOver);
+                this.textureOver = GameMain.GetResManager().GetAsset<Texture2D>(textureOver);
             this.text = text;
-            this.font = GameMain.resManager.GetAsset<SpriteFont>(font);
+            this.font = GameMain.GetResManager().GetAsset<SpriteFont>(font);
+            this.base_font = this.font;
+            this.font_small = GameMain.GetResManager().GetAsset<SpriteFont>(fontsmall);
             if (textColor != null)
                 this.textColor = textColor;
             else
@@ -57,6 +59,7 @@ namespace Cythaldor.GuiElements
             if (new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 1, 1).Intersects(rectangle))
             {
                 over = true;
+                font = font_small;
                 if (textureOver != null)
                     SetTexture(textureOver);
                 if (!soundPlayed)
@@ -83,6 +86,7 @@ namespace Cythaldor.GuiElements
             }
             else if (over)
             {
+                font = base_font;
                 over = false;
                 SetTexture(textureNormal);
                 if (soundPlayed)
@@ -128,6 +132,17 @@ namespace Cythaldor.GuiElements
             CenterText();
         }
 
+        public void AddPosition(int x = 0, int y = 0)
+        {
+            this.rectangle.X += x;
+            this.rectangle.Y += y;
+        }
+
+        public Point GetPosition()
+        {
+            return new Point(this.rectangle.X, this.rectangle.Y);
+        }
+
         public void SetSize(Point size)
         {
             this.rectangle.Width = size.X;
@@ -140,10 +155,20 @@ namespace Cythaldor.GuiElements
             this.texture = texture;
         }
 
+        public Texture2D GetTexture()
+        {
+            return this.texture;
+        }
+
         public void SetRectangle(Rectangle rectangle)
         {
             this.rectangle = rectangle;
             CenterText();
+        }
+
+        public Rectangle GetRectangle()
+        {
+            return this.rectangle;
         }
 
         public void SetClicked()

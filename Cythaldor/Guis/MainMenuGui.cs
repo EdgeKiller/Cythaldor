@@ -32,12 +32,14 @@ namespace Cythaldor.Guis
             header = new ImageRectangle("header", new Rectangle(0, 50, 400, 100));
             header.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
 
-            buttonPlay = new Button("button_play", new Rectangle(0, 250, 190, 49), "button_play_over");
-            buttonPlay.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
+            buttonPlay = new Button("button_blue", new Rectangle(0, 0, 190, 49), "Play", "font_base", "font_base_small", Color.Orange, "button_blue_over");
+            buttonPlay.Center(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
             buttonPlay.onMouseClick += buttonPlay_onMouseClick;
+            buttonPlay.AddPosition(0, -40);
 
-            buttonExit = new Button("button_exit", new Rectangle(0, 320, 190, 49), "button_exit_over");
-            buttonExit.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
+            buttonExit = new Button("button_blue", new Rectangle(0, 0, 190, 49), "Exit", "font_base", "font_base_small", Color.Orange, "button_blue_over");
+            buttonExit.Center(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
+            buttonExit.AddPosition(0, 40);
             buttonExit.onMouseClick += buttonExit_onMouseClick;
 
             cursor = new Cursor("cursor_menu", new Point(Mouse.GetState().X, Mouse.GetState().Y));

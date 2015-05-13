@@ -21,29 +21,41 @@ namespace Cythaldor.Manager
 
         public void Init()
         {
-            actualGui.Init();
+            if (actualGui != null)
+            {
+                actualGui.Init();
+            }
         }
         
         public void Update(GameTime gameTime)
         {
-            actualGui.Update(gameTime);
+            if (actualGui != null)
+            {
+                actualGui.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            actualGui.Draw(spriteBatch);
+            if (actualGui != null)
+            {
+                actualGui.Draw(spriteBatch);
+            }
         }
 
         public void SetGui(Gui gui)
         {
             actualGui = gui;
-            Init();
-            foreach(GuiElement guiElem in gui.guiList)
+            if (actualGui != null)
             {
-                if(guiElem is Button)
+                Init();
+                foreach (GuiElement guiElem in gui.guiList)
                 {
-                    Button guiButton = (Button)guiElem;
-                    guiButton.SetClicked();
+                    if (guiElem is Button)
+                    {
+                        Button guiButton = (Button)guiElem;
+                        guiButton.SetClicked();
+                    }
                 }
             }
         }

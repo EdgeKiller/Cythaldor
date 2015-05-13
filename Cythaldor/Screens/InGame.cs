@@ -11,18 +11,19 @@ using Cythaldor.Guis;
 
 namespace Cythaldor.Screens
 {
-    public class MainMenu : IScreen
+    class InGame : IScreen
     {
-        private Game game;
 
-        public MainMenu(Game game)
+        private Game game;
+        
+        public InGame(Game game)
         {
             this.game = game;
         }
 
         public void Init()
         {
-            GameMain.SetGuiManager(new GuiManager(new MainMenuGui(game)));    
+            GameMain.SetGuiManager(new GuiManager(null));    
         }
 
         public void LoadContent(ContentManager content)

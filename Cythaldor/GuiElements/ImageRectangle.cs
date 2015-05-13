@@ -18,7 +18,7 @@ namespace Cythaldor.GuiElements
 
         public ImageRectangle(string texture, Rectangle rectangle)
         {
-            this.texture = GameMain.resManager.GetAsset<Texture2D>(texture);
+            this.texture = GameMain.GetResManager().GetAsset<Texture2D>(texture);
             this.rectangle = rectangle;
         }
 
@@ -38,7 +38,7 @@ namespace Cythaldor.GuiElements
             if(texture != null)
                 spriteBatch.Draw(texture, rectangle, Color.White);
             else
-                spriteBatch.Draw(GameMain.resManager.GetAsset<Texture2D>("pixel"), rectangle, color);
+                spriteBatch.Draw(GameMain.GetResManager().GetAsset<Texture2D>("pixel"), rectangle, color);
         }
 
         public void SetTexture(Texture2D texture)

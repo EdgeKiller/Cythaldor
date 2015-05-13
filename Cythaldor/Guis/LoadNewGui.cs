@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Cythaldor.GuiElements;
 using System;
+using Cythaldor.Screens;
 
 namespace Cythaldor.Guis
 {
@@ -32,13 +33,14 @@ namespace Cythaldor.Guis
             header = new ImageRectangle("header", new Rectangle(0, 50, 400, 100));
             header.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
 
-            buttonNew = new Button("button_blue", new Rectangle(0, 200, 190, 49), "New", "font_base", Color.Orange, "button_blue_over");
+            buttonNew = new Button("button_blue", new Rectangle(0, 200, 190, 49), "New", "font_base", "font_base_small", Color.Orange, "button_blue_over");
             buttonNew.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
+            buttonNew.onMouseClick += buttonNew_onMouseClick;
 
-            buttonLoad = new Button("button_blue", new Rectangle(0, 295, 190, 49), "Load", "font_base", Color.Orange, "button_blue_over");
+            buttonLoad = new Button("button_blue", new Rectangle(0, 295, 190, 49), "Load", "font_base", "font_base_small", Color.Orange, "button_blue_over");
             buttonLoad.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
 
-            buttonReturn = new Button("button_blue", new Rectangle(0, 320, 190, 49), "Return", "font_base", Color.Orange, "button_blue_over");
+            buttonReturn = new Button("button_blue", new Rectangle(0, 320, 190, 49), "Return", "font_base", "font_base_small", Color.Orange, "button_blue_over");
             buttonReturn.CenterX(GameMain.GetGraphics().PreferredBackBufferWidth, GameMain.GetGraphics().PreferredBackBufferHeight);
             buttonReturn.onMouseClick += buttonReturn_onMouseClick;
 
@@ -50,6 +52,11 @@ namespace Cythaldor.Guis
             guiList.Add(buttonLoad);
             guiList.Add(buttonReturn);
             guiList.Add(cursor);
+        }
+
+        void buttonNew_onMouseClick(object sender, EventArgs e)
+        {
+            GameMain.GetScreenManager().SetScreen(new InGame(game));
         }
 
         void buttonReturn_onMouseClick(object sender, EventArgs e)

@@ -11,9 +11,11 @@ namespace Cythaldor.Manager
 {
     public class ScreenManager
     {
-        private Screen actualScreen;
+        private IScreen actualScreen;
 
-        public ScreenManager(Screen screen)
+        private ContentManager content;
+
+        public ScreenManager(IScreen screen)
         {
             actualScreen = screen;
         }
@@ -25,6 +27,7 @@ namespace Cythaldor.Manager
 
         public void LoadContent(ContentManager content)
         {
+            this.content = content;
             actualScreen.LoadContent(content);
         }
 
@@ -38,11 +41,13 @@ namespace Cythaldor.Manager
             actualScreen.Draw(spriteBatch);
         }
 
-        public void SetScreen(Screen screen)
+        public void SetScreen(IScreen screen)
         {
             actualScreen = screen;
+            actualScreen.Init();
+            actualScreen.LoadContent(content);
         }
-        public Screen GetScreen()
+        public IScreen GetScreen()
         {
             return actualScreen;
         }

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Cythaldor.Manager
 {
-    public interface Screen
+    public interface IScreen
     {
         void Init();
 

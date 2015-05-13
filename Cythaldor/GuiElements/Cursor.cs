@@ -16,7 +16,7 @@ namespace Cythaldor.GuiElements
 
         public Cursor(string texture, Point position)
         {
-            this.texture = GameMain.resManager.GetAsset<Texture2D>(texture);
+            this.texture = GameMain.GetResManager().GetAsset<Texture2D>(texture);
             this.position = position;
         }
 
