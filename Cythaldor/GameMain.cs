@@ -26,10 +26,10 @@ namespace Cythaldor
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.IsFullScreen = true;
-            IsMouseVisible = true;
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
+            graphics.IsFullScreen = false;
+            IsMouseVisible = false;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
             resManager = new ResourcesManager(Content);
             screenManager = new ScreenManager(new MainMenu(this));
         }

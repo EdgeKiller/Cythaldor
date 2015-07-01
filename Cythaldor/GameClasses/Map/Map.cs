@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Cythaldor.GameClasses.Utils;
+using System.IO;
 
 namespace Cythaldor.GameClasses.Map
 {
@@ -24,13 +26,13 @@ namespace Cythaldor.GameClasses.Map
             
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
             for(int x = 0; x < tileMap.GetLength(0); x++)
             {
                 for(int y = 0; y < tileMap.GetLength(1); y++)
                 {
-                    spriteBatch.Draw(tileMap[x][y].GetTexture(), new Rectangle(), Color.White);
+                    spriteBatch.Draw(tileMap[y][x].GetTexture(), new Rectangle(x * 32, y * 16, 32, 16), Color.White);
                 }
             }
         }
@@ -45,6 +47,19 @@ namespace Cythaldor.GameClasses.Map
             return tileMap[x][y].GetID();
         }
 
-
+        private Tile[][] LoadMapFromFile(string path)
+        {
+            string[] mapDatas = File.ReadAllLines(path);
+            Tile[][] result;
+            for(int y =0; y < mapDatas.GetLength(0); y++)
+            {
+                string[] lineSplit = mapDatas[y].Split();
+                for(int x = 0; x < lineSplit.GetLength(0); x++)
+                {
+                    //result[y][x] = lineSplit[new Tile(x)];
+                }
+            }
+            return result = new Tile[1][];
+        }
     }
 }

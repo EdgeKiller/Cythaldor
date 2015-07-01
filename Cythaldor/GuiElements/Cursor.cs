@@ -30,9 +30,9 @@ namespace Cythaldor.GuiElements
             spriteBatch.Draw(texture, new Vector2(position.X, position.Y), Color.White);
         }
 
-        public void SetTexture(Texture2D texture)
+        public void SetTexture(string texture)
         {
-            this.texture = texture;
+            this.texture = GameMain.GetResManager().GetAsset<Texture2D>(texture);
         }
     }
 }

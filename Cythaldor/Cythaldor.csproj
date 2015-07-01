@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Content\ResourcesManager.cs" />
+    <Compile Include="GameClasses\Utils\Camera.cs" />
     <Compile Include="GameMain.cs" />
     <Compile Include="GameClasses\Map\Map.cs" />
     <Compile Include="GameClasses\Map\MapManager.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="GuiElements\ImageRectangle.cs" />
     <Compile Include="GuiElements\Cursor.cs" />
     <Compile Include="GuiElements\GuiElement.cs" />
+    <Compile Include="Guis\InGameGui.cs" />
     <Compile Include="Guis\LoadNewGui.cs" />
     <Compile Include="Guis\MainMenuGui.cs" />
     <Compile Include="GuiElements\Button.cs" />
